@@ -84,7 +84,7 @@ Graphical user interface
 
 
 ## Author
-Elirock
+Croustille-32
 
 ## License
 This project is open-source and available for modification and distribution.
