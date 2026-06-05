@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="SPVD/SPVD.vcxproj" Id="9921dfb7-c9a3-4926-8e9e-af760e02eff8" />
+</Solution>
