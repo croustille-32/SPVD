@@ -1,8 +1,20 @@
-#pragma once
+﻿#pragma once
 #include <windows.h>
 #include <vector>
 #include <string>
 #include <unordered_map>
+
+struct DriverInfo
+{
+    std::string name;
+    std::string path;
+	int riskLevel;
+	int vulnerabilityScore;
+	std::string listOfVulnerableFonction;
+	std::string productName;
+};
+
+
 std::vector<std::string> listOfFonctionScan =
 {
     // IOCTL / Device Creation
@@ -95,9 +107,8 @@ std::vector<std::string> listOfFonctionScan =
 };
 
 
-std::unordered_map<std::string, int> vulnerabilityScores =
+std::unordered_map<std::string, int> RiskScores =
 {
-
     // LOW RISK (1-2)
 
     {"IoCreateDevice", 1},
@@ -200,4 +211,35 @@ std::unordered_map<std::string, int> vulnerabilityScores =
 
     {"KeServiceDescriptorTable", 10},
     {"HalDispatchTable", 10}
+};
+
+
+std::unordered_map<std::string, int> VulnerabilityScores =
+{
+    // USER → KERNEL ENTRY POINT
+    {"IRP_MJ_DEVICE_CONTROL", 10},   // IOCTL handler (main attack surface)
+    {"DeviceIoControl", 9},          // user-mode communication API
+
+    // SYMBOLIC LINK EXPOSURE (makes driver reachable)
+    {"IoCreateSymbolicLink", 9},     // exposes device to user-mode
+
+    // WEAK IOCTL SECURITY (critical issues)
+    {"METHOD_NEITHER", 10},          // unsafe pointer handling
+    {"FILE_ANY_ACCESS", 9},          // no access restriction
+
+    // DRIVER CREATION WITHOUT SECURITY DESCRIPTOR
+    {"IoCreateDevice", 7},           // no built-in security
+    {"IoCreateDeviceSecure", 3},     // safer version (lower score)
+
+    // ACCESS CONTROL WEAKNESS
+    {"ObOpenObjectByPointer", 7},    // bypasses normal checks
+    {"ZwOpenProcess", 6},            // may allow handle abuse
+    {"NtOpenProcess", 6},
+
+    // DYNAMIC FUNCTION RESOLUTION (often used to bypass checks)
+    {"MmGetSystemRoutineAddress", 6},
+
+    // DRIVER LOADING / EXPOSURE
+    {"ZwLoadDriver", 7},
+    {"NtLoadDriver", 7}
 };
