@@ -1,5 +1,5 @@
 # SPVD
-SPVD — System Process Vulnerability Detection
+SPVD — Scan potential vulnerable driver
 Overview
 SPVD is a C++ application for Windows designed to scan system driver files (.sys) and identify potential vulnerabilities based on the presence of known risky functions in binary data.
 The program recursively scans a user-specified directory, analyzes each eligible file, and produces a report listing files that may present security risks.
