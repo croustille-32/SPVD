@@ -6,7 +6,7 @@ The program recursively scans a user-specified directory, analyzes each eligible
 
 
 ### minor_info
-i use ai for making the code easier to read.
+used ai to make the code easier to read.
 
 ## Features
 
